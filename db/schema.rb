@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603063955) do
+ActiveRecord::Schema.define(version: 20180603070938) do
+
+  create_table "destinations", force: :cascade do |t|
+    t.integer "journey_id"
+    t.string "address"
+    t.string "latitude"
+    t.string "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["journey_id"], name: "index_destinations_on_journey_id"
+  end
+
+  create_table "journeys", force: :cascade do |t|
+    t.integer "user_id"
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_journeys_on_user_id"
+  end
+
+  create_table "starting_points", force: :cascade do |t|
+    t.integer "journey_id"
+    t.string "address"
+    t.string "latitude"
+    t.string "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["journey_id"], name: "index_starting_points_on_journey_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
