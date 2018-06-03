@@ -17,6 +17,8 @@ gem 'jquery-rails'
 gem 'bootstrap', '~> 4.1.1'
 gem 'geocoder'
 gem 'devise'
+gem 'pry'
+gem 'mysql2'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

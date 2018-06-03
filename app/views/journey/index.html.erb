@@ -1,0 +1,52 @@
+<section id="cover">
+  <div id="cover-caption">
+    <div id="container" class="container">
+      <div class="row">
+        <div class="col-sm-10 offset-sm-1 text-center">
+            <h1 class="display-3">TamoJunto</h1>
+            <div class="info-form">
+            <%= form_tag("/journey/new", method: "get", html: {class:"form-inline justify-content-center" }) do %>
+              <%= text_field_tag :destination, "", class: 'form-control', placeholder: "Digite o destino..." %>
+              <%= submit_tag "Search", class: "btn btn-success" %>
+            <% end %>
+            </div>
+            <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id='map'></div>
+
+<style>
+  #map {
+    height: 100%;
+    position: absolute; 
+    top: 0; 
+    bottom: -200px; 
+    left: 0; 
+    right: 0; 
+    z-index: 0;
+  }
+
+  #cover {
+    z-index: 100;
+    position: relative;
+  }
+</style>
+
+<script>
+  $(document).ready(function() {
+    var mapOptions = {
+      zoom: 8,
+      center: new google.maps.LatLng(-34.397, 150.644),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  })
+</script>
+
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyBi6Y23QZ1G3Uo1e4sLYhRhzSFq57S4xlw">
+    </script>

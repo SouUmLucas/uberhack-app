@@ -1,0 +1,69 @@
+<section id="cover">
+  <div id="cover-caption">
+    <div id="container" class="container">
+      <div class="row">
+        <div class="col-sm-10 offset-sm-1 text-center"> 
+            <div class="info-form">
+            <%= form_tag("/journey/new", method: "get", html: {class:"form-inline justify-content-center" }) do %>
+              <%= text_field_tag :destination, "", class: 'form-control', placeholder: "Digite o destino..." %>
+              <%= submit_tag "Buscar", class: "btn btn-success" %>
+            <% end %>
+            </div>
+            <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #map {
+    height: 100%;
+    position: absolute; 
+    top: 0; 
+    bottom: -200px; 
+    left: 0; 
+    right: 0; 
+    z-index: 0;
+  }
+
+  #cover {
+    margin-top: 10%;
+    z-index: 100;
+    position: relative;
+  }
+</style>
+
+<div id="map"></div>
+<script>
+  var map;
+  function initMap() {
+    starting_point = { lat: <%= @journey.starting_points[0].latitude %>, lng: <%= @journey.starting_points[0].longitude %> }
+    destination = { lat: <%= @journey.destinations[0].latitude %>, lng: <%= @journey.destinations[0].longitude %> }
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: starting_point,
+      zoom: 15
+    });
+
+    var marker = new google.maps.Marker({
+      position: starting_point,
+      map: map,
+      title: 'Você está aqui!'
+    });
+
+    var marker = new google.maps.Marker({
+      position: destination,
+      map: map,
+      title: 'Seu destino!'
+    });
+
+    <% @friends.each do |friend| %>
+      var marker = new google.maps.Marker({
+        position: { lat: <%= friend.latitude %>, lng: <%= friend.longitude %> },
+        icon: "https://maps.google.com/mapfiles/kml/shapes/library_maps.png",
+        map: map,
+      });
+    <% end %>
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi6Y23QZ1G3Uo1e4sLYhRhzSFq57S4xlw&callback=initMap" async defer></script>
