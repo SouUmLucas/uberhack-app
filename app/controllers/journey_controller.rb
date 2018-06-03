@@ -23,11 +23,11 @@ class JourneyController < ApplicationController
 
     starting_points = StartingPoint.all
 
-    nearest_me = starting_points.select { |start| start.distance_to([my_starting_point.latitude, my_starting_point.longitude]) < 0.15 }
+    nearest_me = starting_points.select { |start| start.distance_to([my_starting_point.latitude, my_starting_point.longitude]) < 0.20 }
 
     journeys = Destination.where(journey_id: nearest_me.pluck(:journey_id))
     
-    common_journeys = journeys.select { |journey| journey.distance_to([my_destination_point.latitude, my_destination_point.longitude]) < 0.15 }
+    common_journeys = journeys.select { |journey| journey.distance_to([my_destination_point.latitude, my_destination_point.longitude]) < 0.20 }
 
     StartingPoint.where(journey_id: common_journeys.pluck(:journey_id))
   end
